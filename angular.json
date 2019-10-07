@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-cdn-materialize": {
+    "dns-vcom": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular-cdn-materialize",
+            "outputPath": "dist/dns-vcom",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -63,18 +63,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-cdn-materialize:build"
+            "browserTarget": "dns-vcom:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular-cdn-materialize:build:production"
+              "browserTarget": "dns-vcom:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-cdn-materialize:build"
+            "browserTarget": "dns-vcom:build"
           }
         },
         "test": {
@@ -111,15 +111,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "angular-cdn-materialize:serve"
+            "devServerTarget": "dns-vcom:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "angular-cdn-materialize:serve:production"
+              "devServerTarget": "dns-vcom:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "angular-cdn-materialize"
+  "defaultProject": "dns-vcom"
 }
