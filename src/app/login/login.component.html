@@ -1,29 +1,32 @@
-<div class="container center">
-  <div class="row"><br>
-    <img src="assets/img/vcom.png" alt="" class="responsive-img">
-    <div class="row login">
-      <h4>DNS Vcom</h4>
-      <form [formGroup]="formLogin" (ngSubmit)="login()"  >
-        <div class="row">
+<div class="back-full center">
+  <div class="container">
+    <div class="row"><br>
+      <img src="assets/img/vcom.png" alt="" class="responsive-img">
+      <div class="row login">
+        <h4>DNS Vcom</h4>
+        <form [formGroup]="formLogin" (ngSubmit)="login()"  >
+          <div class="row">
+              <div class="input-field">
+              <i class="material-icons prefix">account_box</i>
+              <input id="icon_prefix" type="text" class="validate" [ngClass]="{'invalid': validOrTouched('name')}" formControlName="name">
+              <label for="icon_prefix">Usuario</label>
+              <div [hidden]="!validOrTouched('name')" style="color: red" >Campo obrigatorio</div>
+            </div>
+          </div>
+          <div class="row">
             <div class="input-field">
-            <i class="material-icons prefix">account_box</i>
-            <input id="icon_prefix" type="text" class="validate" formControlName="user">
-            <label for="icon_prefix">Usuario</label>
-            <div style="color: red" >Campo obrigatorio</div>
+              <i class="material-icons prefix">enhanced_encryption</i>
+              <input id="password" type="password" class="validate" [ngClass]="{'invalid': validOrTouched('password')}" formControlName="password">
+              <label for="password">Senha</label>
+              <div [hidden]="!validOrTouched('password')" style="color: red" >Esqueceu a senha mane?</div>
+              <div [hidden]="loginError" style="color: red" >Vc ramelou no usuário ou na senha :( {{errorMessage}} </div>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="input-field">
-            <i class="material-icons prefix">enhanced_encryption</i>
-            <input id="password" type="password" class="validate" formControlName="pass">
-            <label for="password">Senha</label>
-            <div style="color: red" >Esqueceu a senha mane?</div>
+          <div class="row">
+            <button class="btn btn-large waves-effect waves-light" type="submit">Entrar<i class="material-icons right">send</i></button>
           </div>
-        </div>
-        <div class="row">
-          <button class="btn btn-large waves-effect waves-light" type="submit" name="action">Entrar <i class="material-icons right">send</i></button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 </div>
