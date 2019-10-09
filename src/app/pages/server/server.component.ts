@@ -16,12 +16,12 @@ export class ServerComponent implements OnInit {
   constructor(
     private server: ServerService,
     private route: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.server.getServer('servers').subscribe(res => {
       new TokenStore().setToken(res.token);
-      this.servers = res.data;
+      this.servers = res.data as Server[];
     },
     (err: HttpErrorResponse) => {
       console.log(err.status);
