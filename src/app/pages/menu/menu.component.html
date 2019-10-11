@@ -1,2 +1,19 @@
-<p>menu works!</p>
+<div class="navbar-fixed">
+  <nav class="blue" >
+    <div class="container">
+      <div class="nav-wrapper">
+        <a routerLink="/menu" class="brand-logo">Vcom DNS</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+          <li routerLinkActive="active"><a routerLink="servers">Servidores</a></li>
+          <li routerLinkActive="active"><a routerLink="clients">Clientes</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+<ul class="sidenav blue lighten-1" id="mobile-demo">
+  <li routerLinkActive="active"><a routerLink="servers" class="white-text">Servidores</a></li>
+  <li routerLinkActive="active"><a routerLink="clients" class="white-text">Clientes</a></li>
+</ul>
 <router-outlet></router-outlet>

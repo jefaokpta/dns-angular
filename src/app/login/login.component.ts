@@ -4,6 +4,7 @@ import { ServerService } from '../services/server.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TokenStore } from '../utils/token-store';
 import { Router } from '@angular/router';
+import { CryptoInfo } from '../utils/crypto-info';
 
 declare var $: any;
 
@@ -25,8 +26,6 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    //$('body').css('background-image', 'url("assets/img/www.png")');
-    //$('body').css('background-repeat', 'no-repeat');
     this.formLogin = this.fb.group({
       name: [null, Validators.required],
       password: [null, Validators.required]
@@ -34,10 +33,12 @@ export class LoginComponent implements OnInit {
   }
   login(){
     if(this.formLogin.valid){
-      console.log(this.formLogin.value)
       this.loginError = true;
-      this.server.postServer('dns', this.formLogin.value).subscribe(res => {
-        console.log(res);
+      this.server.postServer('dns', JSON.stringify({
+        name: this.formLogin.controls.name.value,
+        password: 'HASH ' + new CryptoInfo().encrypString(this.formLogin.controls.password.value)
+      }))
+      .subscribe(res => {
         new TokenStore().setToken(res.token);
         this.route.navigate(['menu']);
       },

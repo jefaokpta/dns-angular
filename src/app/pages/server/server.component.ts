@@ -13,15 +13,22 @@ import { Router } from '@angular/router';
 export class ServerComponent implements OnInit {
 
   servers: Server[];
+  loading = false;
   constructor(
     private server: ServerService,
     private route: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.server.getServer('servers').subscribe(res => {
       new TokenStore().setToken(res.token);
-      this.servers = res.data;
+      this.servers = res.data as Server[];
+      this.loading = true;
+      this.servers.forEach(s => {
+        this.server.getServer('dns/' + s.ip).subscribe(resPing => {
+          s.ping = resPing.txt === 'true' ? true : false;
+        });
+      });
     },
     (err: HttpErrorResponse) => {
       console.log(err.status);
@@ -29,5 +36,4 @@ export class ServerComponent implements OnInit {
       this.route.navigate(['login']);
     });
   }
-
 }
