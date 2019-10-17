@@ -1,19 +1,53 @@
 <div class="navbar-fixed">
-  <nav class="blue" >
+  <nav class="white" >
     <div class="container">
       <div class="nav-wrapper">
-        <a routerLink="/menu" class="brand-logo">Vcom DNS</a>
-        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <a routerLink="servers" class="brand-logo"><img style="height: 55px" src="assets/img/vcommenu.png"></a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger blue-text"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
-          <li routerLinkActive="active"><a routerLink="servers">Servidores</a></li>
-          <li routerLinkActive="active"><a routerLink="clients">Clientes</a></li>
+          <li routerLinkActive="active"><a routerLink="servers" class="blue-text">Servidores<i class="material-icons left">dns</i></a></li>
+          <li routerLinkActive="active"><a routerLink="clients" class="blue-text">Clientes<i class="material-icons left">call_split</i></a></li>
+          <!-- Dropdown Trigger -->
+          <li>
+            <a class="dropdown-trigger blue-text" href="#!" data-target="dropdown">
+              Usuario
+              <i class="material-icons left">account_box</i>
+              <i class="material-icons right">arrow_drop_down</i>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
   </nav>
 </div>
-<ul class="sidenav blue lighten-1" id="mobile-demo">
-  <li routerLinkActive="active"><a routerLink="servers" class="white-text">Servidores</a></li>
-  <li routerLinkActive="active"><a routerLink="clients" class="white-text">Clientes</a></li>
+<!-- Dropdown Structure -->
+<ul id="dropdown" class="dropdown-content">
+  <li><a class="blue-text" href="#!">Editar<i class="material-icons left blue-text">edit</i></a></li>
+  <li><a class="blue-text" (click)="logout()">Sair<i class="material-icons left blue-text">exit_to_app</i></a></li>
+</ul>
+<!-- Dropdown Structure mobile -->
+<ul id="dropdown-mobile" class="dropdown-content">
+  <li><a class="blue-text" href="#!">Editar<i class="material-icons left blue-text">edit</i></a></li>
+  <li><a class="blue-text" (click)="logout()" >Sair<i class="material-icons left blue-text">exit_to_app</i></a></li>
+</ul>
+<ul class="sidenav" id="mobile-demo">
+  <li routerLinkActive="active"><a class="blue-text" routerLink="servers">Servidores<i class="material-icons left blue-text">dns</i></a></li>
+  <li routerLinkActive="active"><a class="blue-text" routerLink="clients">Clientes<i class="material-icons left blue-text">call_split</i></a></li>
+  <!-- Dropdown Trigger -->
+  <li>
+    <a class="dropdown-trigger blue-text" href="#!" data-target="dropdown-mobile">
+      Usuario
+      <i class="material-icons left blue-text">account_box</i>
+      <i class="material-icons right blue-text">arrow_drop_down</i>
+    </a>
+  </li>
 </ul>
 <router-outlet></router-outlet>
+<footer class="page-footer white">
+  <div class="footer-copyright">
+    <div class="container blue-text">
+      © 2019 Copyright
+      <a class="right" href="https://www.vcomsolucoes.com.br/">Vcom Solucoes</a>
+    </div>
+  </div>
+</footer>

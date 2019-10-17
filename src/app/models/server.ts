@@ -4,4 +4,5 @@ export class Server{
   name: string;
   ip: string;
   ping: boolean;
+  loading = false;
 }

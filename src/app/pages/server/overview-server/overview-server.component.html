@@ -1,0 +1,77 @@
+<div class="card grey lighten-4">
+  <div class="card-content">
+    <div class="row">
+      <div class="col s6">
+        <span class="card-title"><h3>Servidores</h3></span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s6">
+          <a (click)="newServer()" title="Novo Servidor" class="btn-floating btn-large waves-effect waves-light blue"><i class="material-icons">add</i></a>
+      </div>
+      <div class="col s6">
+        <div class="input-field">
+          <input id="icon_prefix" type="text" [(ngModel)]="filter">
+          <label for="icon_prefix">Busca</label>
+          <i class="material-icons prefix">search</i>
+        </div>
+        </div>
+    </div>
+    <div [hidden]="loading">
+      <div class="progress blue lighten-2" >
+          <div class="indeterminate blue lighten-5"></div>
+      </div>
+  </div>
+    <table class="striped highlight centered">
+      <thead>
+        <tr>
+          <th>AÇÕES</th>
+          <th>ID</th>
+          <th>SERVIDOR</th>
+          <th>IP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of filterTable()" >
+          <td>
+            <a routerLink="edit-server" title="Editar" class="btn-floating btn-small blue lighten-2 waves-effect waves-light"><i class="material-icons">edit</i></a>
+            <a title="Apagar" data-target="modal1" (click)="confirmDelete(s)"  class="btn-floating btn-small red lighten-2 waves-effect waves-light modal-trigger" style="left: 2px;"><i class="material-icons">delete_forever</i></a>
+          </td>
+          <td>{{s.id}}</td>
+          <td>{{s.name}}</td>
+          <td>
+            {{s.ip}}
+            <div [hidden]="s.loading">
+              <div class="preloader-wrapper small active right">
+                <div class="spinner-layer spinner-blue-only">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div [hidden]="!s.loading">
+              <span class="new badge red lighten-2 right" [ngClass]="{'green': s.ping}"  data-badge-caption="Teste Ping"></span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Apagar Servidor {{serverDelete.name}}?</h4>
+      <h5>Tem certeza disso?</h5>
+    </div>
+    <div class="modal-footer">
+      <a (click)="deleteServer()"  class="waves-effect waves-light btn red modal-close">Sim</a>
+    </div>
+  </div>
+
+

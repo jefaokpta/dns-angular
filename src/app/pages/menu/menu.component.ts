@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { TokenStore } from '../../utils/token-store';
 
 declare var $: any;
 
@@ -9,10 +11,16 @@ declare var $: any;
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private route: Router
+  ) { }
 
   ngOnInit() {
     $('.sidenav').sidenav();
+    $('.dropdown-trigger').dropdown({hover: false});
   }
-
+  logout(){
+    new TokenStore().removeToken();
+    this.route.navigate(['login']);
+  }
 }

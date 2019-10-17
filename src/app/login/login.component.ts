@@ -15,7 +15,7 @@ declare var $: any;
 })
 export class LoginComponent implements OnInit {
 
-  formLogin:FormGroup;
+  formLogin: FormGroup;
   loginError = true;
   errorMessage = '';
 
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
       }))
       .subscribe(res => {
         new TokenStore().setToken(res.token);
-        this.route.navigate(['menu']);
+        this.route.navigate(['menu/servers']);
       },
       (err: HttpErrorResponse) => {
         console.log(err);

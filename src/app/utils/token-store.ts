@@ -16,4 +16,7 @@ export class TokenStore{
       console.error('Erro ao salvar TOKEN localStorage', e);
     }
   }
+  public removeToken(){
+    localStorage.removeItem('DNSTOKEN');
+  }
 }
