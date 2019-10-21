@@ -7,12 +7,12 @@
         <form [formGroup]="form" (ngSubmit)="save()" >
             <div class="card-content">
                 <div class="input-field">
-                  <input id="name" type="text" class="validate" [ngClass]="validOrTouched('name')"  formControlName="name">
+                  <input id="name" type="text" class="validate" [ngClass]="validate('name')"  formControlName="name">
                   <label for="name">Nome</label>
                   <span class="helper-text" data-error="Campo Obrigatório"></span>
                 </div>
                 <div class="input-field">
-                    <input id="ip" type="text" [ngClass]="validOrTouched('ip')" formControlName="ip">
+                    <input id="ip" type="text" [ngClass]="validate('ip')" formControlName="ip">
                     <label for="ip">IP</label>
                     <span class="helper-text" data-error="IP inválido"></span>
                   </div>

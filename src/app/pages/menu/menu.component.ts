@@ -17,7 +17,7 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
     $('.sidenav').sidenav();
-    $('.dropdown-trigger').dropdown({hover: false});
+    $('.dropdown-trigger').dropdown();
   }
   logout(){
     new TokenStore().removeToken();

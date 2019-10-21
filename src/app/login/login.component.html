@@ -8,17 +8,17 @@
           <div class="row">
               <div class="input-field">
               <i class="material-icons prefix">account_box</i>
-              <input id="icon_prefix" type="text" class="validate" [ngClass]="{'invalid': validOrTouched('name')}" formControlName="name">
+              <input id="icon_prefix" type="text" class="validate" [ngClass]="{'invalid': validate('name')}" formControlName="name" autocomplete="on">
               <label for="icon_prefix">Usuario</label>
-              <div [hidden]="!validOrTouched('name')" style="color: red" >Campo obrigatorio</div>
+              <div [hidden]="!validate('name')" style="color: red" >Campo obrigatorio</div>
             </div>
           </div>
           <div class="row">
             <div class="input-field">
               <i class="material-icons prefix">enhanced_encryption</i>
-              <input id="password" type="password" class="validate" [ngClass]="{'invalid': validOrTouched('password')}" formControlName="password">
+              <input id="password" type="password" class="validate" [ngClass]="{'invalid': validate('password')}" formControlName="password" autocomplete="on">
               <label for="password">Senha</label>
-              <div [hidden]="!validOrTouched('password')" style="color: red" >Esqueceu a senha mane?</div>
+              <div [hidden]="!validate('password')" style="color: red" >Esqueceu a senha mane?</div>
               <div [hidden]="loginError" style="color: red" >Vc ramelou no usuário ou na senha :( {{errorMessage}} </div>
             </div>
           </div>

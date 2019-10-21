@@ -21,6 +21,14 @@ export class ServerService {
       })
     });
   }
+  public updateServer(page: string, data){
+    return this.http.put<Message>(this.url + page, data, {
+      headers: new HttpHeaders({
+        'content-type': 'application/json',
+        'authorization': 'Bearer ' + new TokenStore().getToken()
+      })
+    });
+  }
   public getServer(page: string){
     return this.http.get<Message>(this.url + page, {
       headers: new HttpHeaders({

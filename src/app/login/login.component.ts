@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
       });
     }
   }
-  validOrTouched(field): boolean{
+  validate(field): boolean{
     return !this.formLogin.get(field).valid && this.formLogin.get(field).touched;
   }
 }

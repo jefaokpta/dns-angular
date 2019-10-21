@@ -5,9 +5,9 @@ import { Router } from '@angular/router';
 import { TokenStore } from 'src/app/utils/token-store';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TransporterService } from '../../../services/transporter.service';
+import { Toast } from '../../../utils/toast';
 
 declare var $: any;
-declare var M: any;
 
 @Component({
   selector: 'app-overview-server',
@@ -28,6 +28,7 @@ export class OverviewServerComponent implements OnInit {
 
   ngOnInit() {
     $('.modal').modal();
+    this.serverDelete = new Server();
     this.server.getServer('servers').subscribe(res => {
       new TokenStore().setToken(res.token);
       this.servers = res.data as Server[];
@@ -50,21 +51,27 @@ export class OverviewServerComponent implements OnInit {
     this.serverDelete = server;
   }
   deleteServer(){
-    // this.server.deleteServer('servers', server.id).subscribe(res => {
-    //   M.toast({
-    //     html: res.txt,
-    //     displayLength: 10000,
-    //     classes: 'blue'
-    //   });
-      console.log(this.servers.splice(this.servers.indexOf(this.serverDelete),1))
-      //this.filterTable();
-    //});
+    this.servers.splice(this.servers.indexOf(this.serverDelete), 1);
+    this.server.deleteServer('servers', this.serverDelete.id).subscribe(res => {
+       new Toast().showToast(res.txt, 'green', 10000);
+    },
+    (err: HttpErrorResponse) => {
+      console.log(err);
+      new Toast().showToast(err.error.txt, 'red', 10000);
+    });
+  }
+  editServer(serverEdit: Server){
+    this.transport.setObj([
+      {server: serverEdit},
+      {servers: this.servers}
+    ]);
+    this.route.navigate(['menu/servers/edit-server']);
   }
   newServer(){
     this.transport.setObj(this.servers);
     this.route.navigate(['menu/servers/new-server']);
   }
-  filterTable(){
+  filterTable(): Server[]{
     if (this.servers.length === 0 || this.filter === 'undefined' || this.filter.trim() === '') {
       return this.servers;
     }

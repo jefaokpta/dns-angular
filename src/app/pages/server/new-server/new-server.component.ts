@@ -6,8 +6,9 @@ import { Router } from '@angular/router';
 import { Server } from '../../../models/server';
 import { TransporterService } from '../../../services/transporter.service';
 import { TokenStore } from '../../../utils/token-store';
+import { Toast } from '../../../utils/toast';
 
-declare var M: any;
+
 
 @Component({
   selector: 'app-new-server',
@@ -34,11 +35,7 @@ export class NewServerComponent implements OnInit {
     }, (err: HttpErrorResponse) => {
         console.log(err.error);
         console.log(err.status);
-        M.toast({
-          html: 'Sessão Expirada!',
-          displayLength: 10000,
-          classes: 'blue'
-        });
+        new Toast().showToast('Sessão Expirada!', 'blue', 10000);
         this.route.navigate(['/login']);
       });
     this.form = this.fb.group({
@@ -56,36 +53,24 @@ export class NewServerComponent implements OnInit {
       let send = true;
       this.servers.forEach(s => {
         if (this.form.controls.name.value.toLowerCase() === s.name.toLowerCase()) {
-          M.toast({
-            html: 'Servidor com nome: ' + this.form.controls.name.value + ' já existe!',
-            displayLength: 30000,
-            classes: 'red'
-          });
+          new Toast().showToast('Servidor com nome: ' + this.form.controls.name.value + ' já existe!', 'red', 30000);
           send = false;
         }
       });
       if (send) {
         this.loading = false;
         this.server.postServer('servers', this.form.value).subscribe(res => {
-          M.toast({
-            html: res.txt,
-            displayLength: 10000,
-            classes: 'blue'
-          });
+          new Toast().showToast(res.txt, 'green', 10000);
           this.route.navigate(['menu/servers']);
         },
         (err: HttpErrorResponse) => {
           this.loading = true;
-          M.toast({
-            html: err.error,
-            displayLength: 30000,
-            classes: 'red'
-          });
+          new Toast().showToast(err.error.txt, 'red', 30000);
         });
       }
     }
   }
-  validOrTouched(field){
+  validate(field: string){
     if(this.form.get(field).touched){
       if(this.form.get(field).invalid) {
         return 'invalid';
