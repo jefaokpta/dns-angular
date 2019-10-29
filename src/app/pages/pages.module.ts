@@ -9,6 +9,9 @@ import { PagesRoutingModule } from './pages.routing.module';
 import { NewServerComponent } from './server/new-server/new-server.component';
 import { EditServerComponent } from './server/edit-server/edit-server.component';
 import { OverviewServerComponent } from './server/overview-server/overview-server.component';
+import { ClientViewComponent } from './client/client-view/client-view.component';
+import { ClientEditComponent } from './client/client-edit/client-edit.component';
+import { ClientNewComponent } from './client/client-new/client-new.component';
 
 
 
@@ -19,7 +22,10 @@ import { OverviewServerComponent } from './server/overview-server/overview-serve
     ClientComponent,
     NewServerComponent,
     EditServerComponent,
-    OverviewServerComponent
+    OverviewServerComponent,
+    ClientViewComponent,
+    ClientEditComponent,
+    ClientNewComponent
   ],
   imports: [
     CommonModule,

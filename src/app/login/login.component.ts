@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
       }))
       .subscribe(res => {
         new TokenStore().setToken(res.token);
-        this.route.navigate(['menu/servers']);
+        this.route.navigate(['menu/clients']);
       },
       (err: HttpErrorResponse) => {
         console.log(err);

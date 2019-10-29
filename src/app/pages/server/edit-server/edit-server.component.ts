@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Toast } from '../../../utils/toast';
 
+declare var M: any;
 
 @Component({
   selector: 'app-edit-server',
@@ -52,7 +53,9 @@ export class EditServerComponent implements OnInit {
         ]
       ]
     });
-
+    setTimeout(() => { // PRECISA DAR ESSE TEMPO PRA CONSTRUIR O HTML
+      M.updateTextFields();
+    }, 1000);
   }
   edit(){
     if(this.form.valid){

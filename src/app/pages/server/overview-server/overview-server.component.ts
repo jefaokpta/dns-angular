@@ -16,10 +16,11 @@ declare var $: any;
 })
 export class OverviewServerComponent implements OnInit {
 
-  servers: Server[];
+  servers: Server[] = [];
   loading = false;
   serverDelete: Server;
   filter = '';
+
   constructor(
     private server: ServerService,
     private route: Router,
@@ -27,11 +28,20 @@ export class OverviewServerComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    $('.modal').modal();
+    $('.fixed-action-btn').fadeOut();
+    $(window).on('scroll', function() { // ESCONDE BOTAO QND TOP
+      const scrollPos = $(window).scrollTop();
+      if (scrollPos <= 500) {
+          $('.fixed-action-btn').fadeOut();
+      } else {
+          $('.fixed-action-btn').fadeIn();
+      }
+    });
     this.serverDelete = new Server();
+    $('.modal').modal();
     this.server.getServer('servers').subscribe(res => {
       new TokenStore().setToken(res.token);
-      this.servers = res.data as Server[];
+      this.servers = res.data;
       this.loading = true;
       this.servers.forEach(s => {
         this.server.getServer('dns/' + s.ip).subscribe(resPing => {
@@ -71,7 +81,7 @@ export class OverviewServerComponent implements OnInit {
     this.transport.setObj(this.servers);
     this.route.navigate(['menu/servers/new-server']);
   }
-  filterTable(): Server[]{
+  filterTable(): Server[] {
     if (this.servers.length === 0 || this.filter === 'undefined' || this.filter.trim() === '') {
       return this.servers;
     }
@@ -81,5 +91,9 @@ export class OverviewServerComponent implements OnInit {
           server.id.toString().toLowerCase().indexOf(this.filter.toLowerCase()) >= 0;
     });
   }
-
+  toSearch(){
+    $('html, body').animate({
+      scrollTop: $('#icon_prefix').offset().top-200
+    }, 1500, function(){$( '#icon_prefix' ).focus();});
+  }
 }
