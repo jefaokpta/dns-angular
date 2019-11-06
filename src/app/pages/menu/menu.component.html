@@ -2,15 +2,17 @@
   <nav class="white" >
     <div class="container">
       <div class="nav-wrapper">
-        <a routerLink="servers" class="brand-logo"><img style="height: 55px" src="assets/img/vcommenu.png"></a>
+        <a routerLink="servers" class="brand-logo"><img style="height: 55px" src="assets/img/logo_vip.png"></a>
+        <!-- <a routerLink="clients" class="brand-logo blue-text">VIP DNS</a> -->
         <a href="#" data-target="mobile-demo" class="sidenav-trigger blue-text"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
           <li routerLinkActive="active"><a routerLink="servers" class="blue-text">Servidores<i class="material-icons left">dns</i></a></li>
           <li routerLinkActive="active"><a routerLink="clients" class="blue-text">Clientes<i class="material-icons left">call_split</i></a></li>
+          <li routerLinkActive="active"><a routerLink="binds" class="blue-text">Bind<i class="material-icons left">autorenew</i></a></li>
           <!-- Dropdown Trigger -->
           <li>
             <a class="dropdown-trigger blue-text" href="#!" data-target="dropdown">
-              Usuario
+              {{user}}
               <i class="material-icons left">account_box</i>
               <i class="material-icons right">arrow_drop_down</i>
             </a>
@@ -18,6 +20,7 @@
         </ul>
       </div>
     </div>
+
   </nav>
 </div>
 <!-- Dropdown Structure -->
@@ -33,10 +36,11 @@
 <ul class="sidenav" id="mobile-demo">
   <li routerLinkActive="active"><a class="blue-text" routerLink="servers">Servidores<i class="material-icons left blue-text">dns</i></a></li>
   <li routerLinkActive="active"><a class="blue-text" routerLink="clients">Clientes<i class="material-icons left blue-text">call_split</i></a></li>
+  <li routerLinkActive="active"><a routerLink="binds" class="blue-text">Bind<i class="material-icons left">autorenew</i></a></li>
   <!-- Dropdown Trigger -->
   <li>
     <a class="dropdown-trigger blue-text" href="#!" data-target="dropdown-mobile">
-      Usuario
+      {{user}}
       <i class="material-icons left blue-text">account_box</i>
       <i class="material-icons right blue-text">arrow_drop_down</i>
     </a>

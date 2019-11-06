@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { TokenStore } from '../utils/token-store';
 import { Router } from '@angular/router';
 import { CryptoInfo } from '../utils/crypto-info';
+import { TransporterService } from '../services/transporter.service';
 
 declare var $: any;
 
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private server: ServerService,
-    private route: Router
+    private route: Router,
+    private transport: TransporterService
   ) {}
 
   ngOnInit() {
@@ -40,6 +42,7 @@ export class LoginComponent implements OnInit {
       }))
       .subscribe(res => {
         new TokenStore().setToken(res.token);
+        this.transport.setObj(this.formLogin.controls.name.value);
         this.route.navigate(['menu/clients']);
       },
       (err: HttpErrorResponse) => {

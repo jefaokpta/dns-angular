@@ -12,6 +12,10 @@ import { OverviewServerComponent } from './server/overview-server/overview-serve
 import { ClientViewComponent } from './client/client-view/client-view.component';
 import { ClientEditComponent } from './client/client-edit/client-edit.component';
 import { ClientNewComponent } from './client/client-new/client-new.component';
+import { BindComponent } from './bind/bind.component';
+import { BindViewComponent } from './bind/bind-view/bind-view.component';
+import { BindEditComponent } from './bind/bind-edit/bind-edit.component';
+import { BindNewComponent } from './bind/bind-new/bind-new.component';
 
 
 
@@ -25,7 +29,11 @@ import { ClientNewComponent } from './client/client-new/client-new.component';
     OverviewServerComponent,
     ClientViewComponent,
     ClientEditComponent,
-    ClientNewComponent
+    ClientNewComponent,
+    BindComponent,
+    BindViewComponent,
+    BindEditComponent,
+    BindNewComponent
   ],
   imports: [
     CommonModule,

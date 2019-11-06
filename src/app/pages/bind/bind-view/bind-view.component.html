@@ -2,7 +2,7 @@
   <div class="card-content">
     <div class="row">
       <div class="col s6">
-        <span class="card-title"><h3>Servidores</h3></span>
+        <span class="card-title"><h3>Servidores Bind</h3></span>
       </div>
     </div>
     <div class="row">
@@ -15,7 +15,7 @@
           <label for="icon_prefix">Busca</label>
           <i class="material-icons prefix">search</i>
         </div>
-        </div>
+      </div>
     </div>
     <div [hidden]="loading">
       <div class="progress blue lighten-2" >
@@ -26,19 +26,20 @@
       <thead>
         <tr>
           <th>AÇÕES</th>
-          <th>ID</th>
           <th>SERVIDOR</th>
+          <th>ATUALIZADO</th>
           <th>IP</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let s of filterTable()" >
           <td>
-            <a (click)="editServer(s)"  title="Editar" class="btn-floating btn-small blue lighten-2 waves-effect waves-light"><i class="material-icons">edit</i></a>
+            <a title="Atualiza Servidor" (click)="showUpdateBind(s)"  data-target="modal2"   class="btn-floating btn-small green lighten-2 waves-effect waves-light modal-trigger"><i class="material-icons">send</i></a>
+            <a (click)="editServer(s)"  title="Editar" class="btn-floating btn-small blue lighten-2 waves-effect waves-light" style="left: 2px;"><i class="material-icons">edit</i></a>
             <a title="Apagar" data-target="modal1" (click)="confirmDelete(s)"  class="btn-floating btn-small red lighten-2 waves-effect waves-light modal-trigger" style="left: 2px;"><i class="material-icons">delete_forever</i></a>
           </td>
-          <td>{{s.id}}</td>
           <td>{{s.name}}</td>
+          <td>{{s.lastupdate | date: 'dd/MM/yy HH:mm'}}</td>
           <td>
             {{s.ip}}
             <div [hidden]="s.loading">
@@ -65,12 +66,36 @@
 </div>
 <!-- Modal Structure -->
 <div id="modal1" class="modal">
+  <div class="modal-content">
+    <h4>Apagar Servidor {{serverDelete.name}}?</h4>
+    <h5>Tem certeza disso?</h5>
+  </div>
+  <div class="modal-footer">
+    <a (click)="deleteServer()"  class="waves-effect waves-light btn red modal-close">Sim</a>
+  </div>
+</div>
+<div id="modal2" class="modal">
     <div class="modal-content">
-      <h4>Apagar Servidor {{serverDelete.name}}?</h4>
-      <h5>Tem certeza disso?</h5>
+      <h4>Atualizar Servidor Bind {{serverUpdate.name}} </h4>
+      <div [hidden]="loadingUpdate" >
+          <div class="preloader-wrapper small active">
+            <div class="spinner-layer spinner-blue-only">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper">
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ul class="collection">
+          <li *ngFor="let r of updateMsg" >{{r}} </li>
+        </ul>
     </div>
     <div class="modal-footer">
-      <a (click)="deleteServer()"  class="waves-effect waves-light btn red modal-close">Sim</a>
+      <button class="waves-effect waves-light btn green" [disabled]="!loadingUpdate" (click)="updateBind()"  >Começar</button>
     </div>
   </div>
   <div class="fixed-action-btn">

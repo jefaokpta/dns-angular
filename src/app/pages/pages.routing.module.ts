@@ -9,6 +9,10 @@ import { OverviewServerComponent } from './server/overview-server/overview-serve
 import { ClientViewComponent } from './client/client-view/client-view.component';
 import { ClientEditComponent } from './client/client-edit/client-edit.component';
 import { ClientNewComponent } from './client/client-new/client-new.component';
+import { BindComponent } from './bind/bind.component';
+import { BindViewComponent } from './bind/bind-view/bind-view.component';
+import { BindNewComponent } from './bind/bind-new/bind-new.component';
+import { BindEditComponent } from './bind/bind-edit/bind-edit.component';
 
 
 const pagesRoutes: Routes = [
@@ -23,6 +27,11 @@ const pagesRoutes: Routes = [
         { path: 'new-server', component: NewServerComponent},
         { path: 'edit-server', component: EditServerComponent},
         { path: '', component: OverviewServerComponent}
+      ]},
+      { path: 'binds', component: BindComponent, children: [
+        { path: 'new', component: BindNewComponent},
+        { path: 'edit', component: BindEditComponent},
+        { path: '', component: BindViewComponent}
       ]}
     ]
   }
