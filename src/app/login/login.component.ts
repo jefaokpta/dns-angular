@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
       }))
       .subscribe(res => {
         new TokenStore().setToken(res.token);
-        this.transport.setObj(this.formLogin.controls.name.value);
+        this.transport.setObj(res.data);
         this.route.navigate(['menu/clients']);
       },
       (err: HttpErrorResponse) => {
