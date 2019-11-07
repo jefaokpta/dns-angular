@@ -6,6 +6,7 @@ import { TransporterService } from 'src/app/services/transporter.service';
 import { TokenStore } from 'src/app/utils/token-store';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Toast } from 'src/app/utils/toast';
+import { TokenService } from '../../../services/token.service';
 
 declare var $: any;
 
@@ -27,7 +28,8 @@ export class BindViewComponent implements OnInit {
   constructor(
     private server: ServerService,
     private route: Router,
-    private transport: TransporterService
+    private transport: TransporterService,
+    private token: TokenService
   ) {}
 
   ngOnInit() {
@@ -44,7 +46,7 @@ export class BindViewComponent implements OnInit {
     this.serverUpdate = new Bind();
     $('.modal').modal();
     this.server.getServer('binds').subscribe(res => {
-      new TokenStore().setToken(res.token);
+      this.token.setToken(res.token);
       this.servers = res.data;
       this.loading = true;
       this.servers.forEach(bind => {
@@ -80,7 +82,7 @@ export class BindViewComponent implements OnInit {
             updated.ping = this.serverUpdate.ping;
             this.servers.splice(this.servers.indexOf(this.serverUpdate), 1, updated);
             this.updateMsg.push(res.txt);
-            new TokenStore().setToken(res.token);
+            this.token.setToken(res.token);
             this.loadingUpdate = true;
           }, (err: HttpErrorResponse) => {
             this.updateMsg.push('DEU RUIM ATUALIZACAO');

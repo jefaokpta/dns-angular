@@ -6,6 +6,7 @@ import { TransporterService } from '../../services/transporter.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ServerService } from '../../services/server.service';
 import { Toast } from '../../utils/toast';
+import { TokenService } from '../../services/token.service';
 
 declare var $: any;
 declare var M: any;
@@ -30,7 +31,8 @@ export class MenuComponent implements OnInit {
     private route: Router,
     private transport: TransporterService,
     private fb: FormBuilder,
-    private server: ServerService
+    private server: ServerService,
+    private token: TokenService
   ) { }
 
   ngOnInit() {
@@ -45,7 +47,7 @@ export class MenuComponent implements OnInit {
     });
   }
   logout(){
-    new TokenStore().removeToken();
+    this.token.removeToken();
     this.route.navigate(['login']);
   }
   showFormUser(){

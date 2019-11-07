@@ -1,7 +1,7 @@
 
 export class TokenStore{
 
-  public getToken(): string{
+  public getTokenOld(): string{
     try {
       return JSON.parse(localStorage.getItem('DNSTOKEN'));
     } catch (e) {
@@ -9,14 +9,14 @@ export class TokenStore{
       return 'nadinha';
     }
   }
-  public setToken(t: string){
+  public setTokenOld(t: string){
     try {
       localStorage.setItem('DNSTOKEN', JSON.stringify(t));
     } catch (e) {
       console.error('Erro ao salvar TOKEN localStorage', e);
     }
   }
-  public removeToken(){
+  public removeTokenOld(){
     localStorage.removeItem('DNSTOKEN');
   }
 }

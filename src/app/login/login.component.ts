@@ -6,6 +6,7 @@ import { TokenStore } from '../utils/token-store';
 import { Router } from '@angular/router';
 import { CryptoInfo } from '../utils/crypto-info';
 import { TransporterService } from '../services/transporter.service';
+import { TokenService } from '../services/token.service';
 
 declare var $: any;
 
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private server: ServerService,
     private route: Router,
-    private transport: TransporterService
+    private transport: TransporterService,
+    private token: TokenService
   ) {}
 
   ngOnInit() {
@@ -41,7 +43,7 @@ export class LoginComponent implements OnInit {
         password: 'HASH ' + new CryptoInfo().encrypString(this.formLogin.controls.password.value)
       }))
       .subscribe(res => {
-        new TokenStore().setToken(res.token);
+        this.token.setToken(res.token);
         this.transport.setObj(res.data);
         this.route.navigate(['menu/clients']);
       },

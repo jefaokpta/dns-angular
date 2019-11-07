@@ -7,6 +7,7 @@ import { TransporterService } from 'src/app/services/transporter.service';
 import { TokenStore } from 'src/app/utils/token-store';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Toast } from 'src/app/utils/toast';
+import { TokenService } from '../../../services/token.service';
 
 declare var M: any;
 
@@ -25,13 +26,14 @@ export class BindNewComponent implements OnInit {
     private fb: FormBuilder,
     private server: ServerService,
     private route: Router,
-    private transport: TransporterService
+    private transport: TransporterService,
+    private token: TokenService
   ) { }
 
   ngOnInit() {
     this.servers = this.transport.getObj();
     this.server.getServer('ping').subscribe(res => {
-      new TokenStore().setToken(res.token);
+      this.token.setToken(res.token);
     }, (err: HttpErrorResponse) => {
         console.log(err.error);
         console.log(err.status);

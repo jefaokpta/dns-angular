@@ -7,6 +7,7 @@ import { TokenStore } from 'src/app/utils/token-store';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Toast } from '../../../utils/toast';
+import { TokenService } from '../../../services/token.service';
 
 declare var M: any;
 
@@ -23,7 +24,8 @@ export class EditServerComponent implements OnInit {
     private transport: TransporterService,
     private server: ServerService,
     private route: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private token: TokenService
   ) { }
 
   servers: Server[];
@@ -32,7 +34,7 @@ export class EditServerComponent implements OnInit {
 
   ngOnInit() {
     this.server.getServer('ping').subscribe(res => {
-      new TokenStore().setToken(res.token);
+      this.token.setToken(res.token);
       }, (err: HttpErrorResponse) => {
         console.log(err.error);
         console.log(err.status);

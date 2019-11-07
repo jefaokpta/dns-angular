@@ -6,6 +6,7 @@ import { TokenStore } from 'src/app/utils/token-store';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TransporterService } from '../../../services/transporter.service';
 import { Toast } from '../../../utils/toast';
+import { TokenService } from '../../../services/token.service';
 
 declare var $: any;
 
@@ -24,7 +25,8 @@ export class OverviewServerComponent implements OnInit {
   constructor(
     private server: ServerService,
     private route: Router,
-    private transport: TransporterService
+    private transport: TransporterService,
+    private token: TokenService
   ) {}
 
   ngOnInit() {
@@ -40,7 +42,7 @@ export class OverviewServerComponent implements OnInit {
     this.serverDelete = new Server();
     $('.modal').modal();
     this.server.getServer('servers').subscribe(res => {
-      new TokenStore().setToken(res.token);
+      this.token.setToken(res.token);
       this.servers = res.data;
       this.loading = true;
       this.servers.forEach(s => {

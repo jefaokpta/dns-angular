@@ -8,6 +8,7 @@ import { TokenStore } from 'src/app/utils/token-store';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Server } from '../../../models/server';
 import { Toast } from 'src/app/utils/toast';
+import { TokenService } from '../../../services/token.service';
 
 declare var $: any;
 declare var M: any;
@@ -29,7 +30,8 @@ export class ClientEditComponent implements OnInit {
     private transport: TransporterService,
     private server: ServerService,
     private route: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private token: TokenService
   ) { }
 
   clients: Client[];
@@ -47,7 +49,7 @@ export class ClientEditComponent implements OnInit {
     });
 
     this.server.getServer('servers').subscribe(res => {
-      new TokenStore().setToken(res.token);
+      this.token.setToken(res.token);
       this.servers = res.data;
       this.filteredServers = res.data;
     },

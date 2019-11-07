@@ -6,6 +6,7 @@ import { TransporterService } from 'src/app/services/transporter.service';
 import { TokenStore } from 'src/app/utils/token-store';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Toast } from 'src/app/utils/toast';
+import { TokenService } from '../../../services/token.service';
 
 declare var $: any;
 
@@ -24,7 +25,8 @@ export class ClientViewComponent implements OnInit {
   constructor(
     private server: ServerService,
     private route: Router,
-    private transport: TransporterService
+    private transport: TransporterService,
+    private token: TokenService
   ) { }
 
   ngOnInit() {
@@ -41,7 +43,7 @@ export class ClientViewComponent implements OnInit {
     this.clientDelete = new Client();
     $('.modal').modal();
     this.server.getServer('clients').subscribe(res => {
-       new TokenStore().setToken(res.token);
+      this.token.setToken(res.token);
        this.clients = res.data;
        this.loading = true;
      }, (err: HttpErrorResponse) => {
