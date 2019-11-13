@@ -30,13 +30,13 @@
 </ul>
 <!-- Dropdown Structure mobile -->
 <ul id="dropdown-mobile" class="dropdown-content">
-  <li><a class="blue-text" href="#!">Editar<i class="material-icons left blue-text">edit</i></a></li>
+  <li><a class="blue-text modal-trigger" (click)="showFormUser()"  data-target="modal">Editar<i class="material-icons left blue-text">edit</i></a></li>
   <li><a class="blue-text" (click)="logout()" >Sair<i class="material-icons left blue-text">exit_to_app</i></a></li>
 </ul>
 <ul class="sidenav" id="mobile-demo">
   <li routerLinkActive="active"><a class="blue-text" routerLink="servers">Servidores<i class="material-icons left blue-text">dns</i></a></li>
   <li routerLinkActive="active"><a class="blue-text" routerLink="clients">Clientes<i class="material-icons left blue-text">call_split</i></a></li>
-  <li routerLinkActive="active"><a routerLink="binds" class="blue-text">Bind<i class="material-icons left">autorenew</i></a></li>
+  <li routerLinkActive="active"><a routerLink="binds" class="blue-text">Bind<i class="material-icons left blue-text">autorenew</i></a></li>
   <!-- Dropdown Trigger -->
   <li>
     <a class="dropdown-trigger blue-text" href="#!" data-target="dropdown-mobile">

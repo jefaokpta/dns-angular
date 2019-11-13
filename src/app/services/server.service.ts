@@ -9,8 +9,9 @@ import { TokenService } from './token.service';
 })
 export class ServerService {
 
-   private url = 'http://localhost:8080/DnsVcomWS/ws/';
-  // private url = location.origin + '/DnsVcomWS/ws/'; // PRODUCAO LOCALHOST COM O WS
+  // private url = 'http://localhost:8080/DnsVcomWS/ws/';
+   private url = location.origin + ':8080/VipDNS/ws/'; // PRODUCAO: LOCALHOST COM O WS
+  // private url = 'http://dns.vcomsolucoes.com.br:8080/VipDNS/ws/';
 
   constructor(
     private http: HttpClient,

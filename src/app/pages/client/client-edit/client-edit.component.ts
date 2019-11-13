@@ -97,6 +97,9 @@ export class ClientEditComponent implements OnInit {
   removeDns(index: number){
     this.dnss.removeAt(index);
   }
+  getFormDnss(): FormArray{
+    return this.form.get('dnss') as FormArray;
+  }
 
   edit(){
     if(this.form.valid){
