@@ -1,7 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TokenStore } from '../../utils/token-store';
 import { TransporterService } from '../../services/transporter.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ServerService } from '../../services/server.service';
@@ -15,6 +14,7 @@ interface User {
   id: number;
   name: string;
   password: string;
+  username: string;
 }
 
 @Component({

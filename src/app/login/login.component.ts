@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { CryptoInfo } from '../utils/crypto-info';
 import { TransporterService } from '../services/transporter.service';
 import { TokenService } from '../services/token.service';
+import { stringify } from 'querystring';
+import { toBase64String } from '@angular/compiler/src/output/source_map';
 
 declare var $: any;
 
@@ -31,20 +33,20 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.formLogin = this.fb.group({
-      name: [null, Validators.required],
+      username: [null, Validators.required],
       password: [null, Validators.required]
     });
   }
   login(){
     if(this.formLogin.valid){
       this.loginError = true;
-      this.server.postServer('dns', JSON.stringify({
-        name: this.formLogin.controls.name.value,
-        password: 'HASH ' + new CryptoInfo().encrypString(this.formLogin.controls.password.value)
-      }))
+      const auth = btoa(this.formLogin.controls.username.value + ':' + this.formLogin.controls.password.value);
+      this.server.postServerSpringLogin('protected/login', JSON.stringify({
+        username: this.formLogin.controls.username.value
+      }), auth)
       .subscribe(res => {
-        this.token.setToken(res.token);
-        this.transport.setObj(res.data);
+        this.token.setToken(auth);
+        this.transport.setObj(res);
         this.route.navigate(['menu/clients']);
       },
       (err: HttpErrorResponse) => {

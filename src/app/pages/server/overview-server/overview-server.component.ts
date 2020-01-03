@@ -41,13 +41,12 @@ export class OverviewServerComponent implements OnInit {
     });
     this.serverDelete = new Server();
     $('.modal').modal();
-    this.server.getServer('servers').subscribe(res => {
-      this.token.setToken(res.token);
-      this.servers = res.data;
+    this.server.getServerSpring('protected/servers').subscribe(res => {
+      this.servers = res as Server[];
       this.loading = true;
       this.servers.forEach(s => {
-        this.server.getServer('dns/' + s.ip).subscribe(resPing => {
-          s.ping = resPing.txt === 'true' ? true : false;
+        this.server.getServerSpringPing('ping/' + s.ip).subscribe(resPing => {
+          s.ping = resPing as boolean;
           s.loading = true;
         });
       });

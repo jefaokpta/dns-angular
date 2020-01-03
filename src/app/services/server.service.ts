@@ -9,8 +9,9 @@ import { TokenService } from './token.service';
 })
 export class ServerService {
 
-  // private url = 'http://localhost:8080/DnsVcomWS/ws/';
-   private url = location.origin + ':8080/VipDNS/ws/'; // PRODUCAO: LOCALHOST COM O WS
+   private url = 'http://localhost:8080/v1/';
+   private ping = 'http://localhost:8080/';
+  // private url = location.origin + ':8080/VipDNS/ws/'; // PRODUCAO: LOCALHOST COM O WS
   // private url = 'http://dns.vcomsolucoes.com.br:8080/VipDNS/ws/';
 
   constructor(
@@ -26,6 +27,21 @@ export class ServerService {
       })
     });
   }
+  public postServerSpring(page: string, data){
+    return this.http.post(this.url + page, data, {
+      headers: new HttpHeaders({
+        'content-type': 'application/json'
+      })
+    });
+  }
+  public postServerSpringLogin(page: string, data, auth){
+    return this.http.post(this.url + page, data, {
+      headers: new HttpHeaders({
+        'content-type': 'application/json',
+        'authorization': 'BASIC ' + auth
+      })
+    });
+  }
   public updateServer(page: string, data){
     return this.http.put<Message>(this.url + page, data, {
       headers: new HttpHeaders({
@@ -38,7 +54,22 @@ export class ServerService {
     return this.http.get<Message>(this.url + page, {
       headers: new HttpHeaders({
         'content-type': 'application/json',
-        'authorization': 'Bearer ' + this.token.getToken()
+        'authorization': 'BASIC ' + this.token.getToken()
+      })
+    });
+  }
+  public getServerSpring(page: string){
+    return this.http.get(this.url + page, {
+      headers: new HttpHeaders({
+        'content-type': 'application/json',
+        'authorization': 'BASIC ' + this.token.getToken()
+      })
+    });
+  }
+  public getServerSpringPing(page: string){
+    return this.http.get(this.ping + page, {
+      headers: new HttpHeaders({
+        'content-type': 'application/json'
       })
     });
   }

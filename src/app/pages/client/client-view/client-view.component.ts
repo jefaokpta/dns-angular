@@ -42,9 +42,8 @@ export class ClientViewComponent implements OnInit {
 
     this.clientDelete = new Client();
     $('.modal').modal();
-    this.server.getServer('clients').subscribe(res => {
-      this.token.setToken(res.token);
-       this.clients = res.data;
+    this.server.getServerSpring('protected/clients').subscribe(res => {
+       this.clients = res as Client[];
        this.loading = true;
      }, (err: HttpErrorResponse) => {
        console.log(err.status);
