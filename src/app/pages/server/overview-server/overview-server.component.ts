@@ -63,8 +63,8 @@ export class OverviewServerComponent implements OnInit {
   }
   deleteServer(){
     this.servers.splice(this.servers.indexOf(this.serverDelete), 1);
-    this.server.deleteServer('servers', this.serverDelete.id).subscribe(res => {
-       new Toast().showToast(res.txt, 'green', 10000);
+    this.server.deleteServerSpring('protected/servers', this.serverDelete.id).subscribe(res => {
+      new Toast().showToast('Descanse em paz ' + this.serverDelete.name, 'green', 10000);
     },
     (err: HttpErrorResponse) => {
       console.log(err);

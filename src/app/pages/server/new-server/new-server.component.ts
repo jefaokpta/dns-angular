@@ -32,14 +32,6 @@ export class NewServerComponent implements OnInit {
 
   ngOnInit() {
     this.servers = this.transport.getObj();
-    this.server.getServer('ping').subscribe(res => {
-      this.token.setToken(res.token);
-    }, (err: HttpErrorResponse) => {
-        console.log(err.error);
-        console.log(err.status);
-        new Toast().showToast('Sessão Expirada!', 'blue', 10000);
-        this.route.navigate(['/login']);
-      });
     this.form = this.fb.group({
       name: [null, Validators.required],
       ip: [null,
@@ -61,8 +53,9 @@ export class NewServerComponent implements OnInit {
       });
       if (send) {
         this.loading = false;
-        this.server.postServer('servers', this.form.value).subscribe(res => {
-          new Toast().showToast(res.txt, 'green', 10000);
+        this.server.postServerSpring('protected/servers', this.form.value).subscribe(res => {
+          const s = res as Server;
+          new Toast().showToast('Criado ' + s.name, 'green', 10000);
           this.route.navigate(['menu/servers']);
         },
         (err: HttpErrorResponse) => {

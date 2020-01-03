@@ -30,7 +30,8 @@ export class ServerService {
   public postServerSpring(page: string, data){
     return this.http.post(this.url + page, data, {
       headers: new HttpHeaders({
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'authorization': 'BASIC ' + this.token.getToken()
       })
     });
   }
@@ -47,6 +48,14 @@ export class ServerService {
       headers: new HttpHeaders({
         'content-type': 'application/json',
         'authorization': 'Bearer ' + this.token.getToken()
+      })
+    });
+  }
+  public updateServerSpring(page: string, data){
+    return this.http.put(this.url + page, data, {
+      headers: new HttpHeaders({
+        'content-type': 'application/json',
+        'authorization': 'BASIC ' + this.token.getToken()
       })
     });
   }
@@ -78,6 +87,14 @@ export class ServerService {
       headers: new HttpHeaders({
         'content-type': 'application/json',
         'authorization': 'Bearer ' + this.token.getToken()
+      })
+    });
+  }
+  public deleteServerSpring(page: string, id: number){
+    return this.http.delete(this.url + page + '/' + id, {
+      headers: new HttpHeaders({
+        'content-type': 'application/json',
+        'authorization': 'BASIC ' + this.token.getToken()
       })
     });
   }
