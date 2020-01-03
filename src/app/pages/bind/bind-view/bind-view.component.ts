@@ -7,6 +7,7 @@ import { TokenStore } from 'src/app/utils/token-store';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Toast } from 'src/app/utils/toast';
 import { TokenService } from '../../../services/token.service';
+import { PingService } from '../../../services/ping.service';
 
 declare var $: any;
 
@@ -29,7 +30,8 @@ export class BindViewComponent implements OnInit {
     private server: ServerService,
     private route: Router,
     private transport: TransporterService,
-    private token: TokenService
+    private token: TokenService,
+    private ping: PingService
   ) {}
 
   ngOnInit() {
@@ -45,13 +47,12 @@ export class BindViewComponent implements OnInit {
     this.serverDelete = new Bind();
     this.serverUpdate = new Bind();
     $('.modal').modal();
-    this.server.getServer('binds').subscribe(res => {
-      this.token.setToken(res.token);
-      this.servers = res.data;
+    this.server.getServerSpring('admin/binds').subscribe(res => {
+      this.servers = res as Bind[];
       this.loading = true;
       this.servers.forEach(bind => {
-        this.server.getServer('dns/' + bind.ip).subscribe(resPing => {
-          bind.ping = resPing.txt === 'true' ? true : false;
+        this.ping.getServerSpringPing('ping/' + bind.ip).subscribe(resPing => {
+          bind.ping = resPing as boolean;
           bind.loading = true;
         });
       });
@@ -59,7 +60,13 @@ export class BindViewComponent implements OnInit {
     (err: HttpErrorResponse) => {
       console.log(err.status);
       console.log(err.error);
-      this.route.navigate(['login']);
+      if (err.status === 403) {
+        new Toast().showToast('Sem Permissão', 'red', 10000);
+        this.route.navigate(['menu/clients']);
+      }
+      else{
+        this.route.navigate(['login']);
+      }
     });
 
   }
@@ -109,8 +116,8 @@ export class BindViewComponent implements OnInit {
   }
   deleteServer(){
     this.servers.splice(this.servers.indexOf(this.serverDelete), 1);
-    this.server.deleteServer('binds', this.serverDelete.id).subscribe(res => {
-       new Toast().showToast(res.txt, 'green', 10000);
+    this.server.deleteServerSpring('admin/binds', this.serverDelete.id).subscribe(res => {
+       new Toast().showToast('Adeus ' + this.serverDelete.name, 'green', 10000);
     },
     (err: HttpErrorResponse) => {
       console.log(err);

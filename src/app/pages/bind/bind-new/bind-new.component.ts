@@ -32,14 +32,6 @@ export class BindNewComponent implements OnInit {
 
   ngOnInit() {
     this.servers = this.transport.getObj();
-    this.server.getServer('ping').subscribe(res => {
-      this.token.setToken(res.token);
-    }, (err: HttpErrorResponse) => {
-        console.log(err.error);
-        console.log(err.status);
-        new Toast().showToast('Sessão Expirada!', 'blue', 10000);
-        this.route.navigate(['/login']);
-      });
     this.form = this.fb.group({
       name: [null, Validators.required],
       lastupdate: [new Date()],
@@ -66,8 +58,8 @@ export class BindNewComponent implements OnInit {
       });
       if (send) {
         this.loading = false;
-        this.server.postServer('binds', this.form.value).subscribe(res => {
-          new Toast().showToast(res.txt, 'green', 10000);
+        this.server.postServerSpring('admin/binds', this.form.value).subscribe(res => {
+          new Toast().showToast('Criado ' + this.form.controls.name.value, 'green', 10000);
           this.route.navigate(['menu/binds']);
         },
         (err: HttpErrorResponse) => {
