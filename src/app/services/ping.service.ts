@@ -6,8 +6,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class PingService {
 
-  private ping = 'http://localhost:8080/';
-
+  // private ping = 'http://localhost:8080/';
+  private ping = 'https://dns-jefao.herokuapp.com/';
   constructor(private http: HttpClient) { }
 
   public getServerSpringPing(page: string){
