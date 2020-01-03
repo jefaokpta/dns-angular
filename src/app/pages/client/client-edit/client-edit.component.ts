@@ -48,10 +48,9 @@ export class ClientEditComponent implements OnInit {
       dnss: this.fb.array(this.buildDnss())
     });
 
-    this.server.getServer('servers').subscribe(res => {
-      this.token.setToken(res.token);
-      this.servers = res.data;
-      this.filteredServers = res.data;
+    this.server.getServerSpring('protected/servers').subscribe(res => {
+      this.servers = res as Server[];
+      this.filteredServers = res as Server[];
     },
     (err: HttpErrorResponse) => {
       console.log(err.status);
@@ -104,8 +103,8 @@ export class ClientEditComponent implements OnInit {
   edit(){
     if(this.form.valid){
       this.loading = false;
-      this.server.updateServer('clients', this.form.value).subscribe(res => {
-          new Toast().showToast(res.txt, 'green', 10000);
+      this.server.updateServerSpring('protected/clients', this.form.value).subscribe(res => {
+          new Toast().showToast('Editado ' + this.clientEdit.name, 'green', 10000);
           this.route.navigate(['menu/clients']);
         },
         (err: HttpErrorResponse) => {

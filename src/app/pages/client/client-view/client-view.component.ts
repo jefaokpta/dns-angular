@@ -42,9 +42,8 @@ export class ClientViewComponent implements OnInit {
 
     this.clientDelete = new Client();
     $('.modal').modal();
-    this.server.getServer('clients').subscribe(res => {
-      this.token.setToken(res.token);
-       this.clients = res.data;
+    this.server.getServerSpring('protected/clients').subscribe(res => {
+       this.clients = res as Client[];
        this.loading = true;
      }, (err: HttpErrorResponse) => {
        console.log(err.status);
@@ -57,8 +56,8 @@ export class ClientViewComponent implements OnInit {
   }
   deleteClient(){
     this.clients.splice(this.clients.indexOf(this.clientDelete), 1);
-    this.server.deleteServer('clients', this.clientDelete.id).subscribe(res => {
-       new Toast().showToast(res.txt, 'green', 10000);
+    this.server.deleteServerSpring('protected/clients', this.clientDelete.id).subscribe(res => {
+       new Toast().showToast('Vá em paz ' + this.clientDelete.name, 'green', 10000);
     },
     (err: HttpErrorResponse) => {
       console.log(err);
