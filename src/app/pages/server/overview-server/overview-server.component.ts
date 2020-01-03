@@ -7,6 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { TransporterService } from '../../../services/transporter.service';
 import { Toast } from '../../../utils/toast';
 import { TokenService } from '../../../services/token.service';
+import { PingService } from '../../../services/ping.service';
 
 declare var $: any;
 
@@ -26,7 +27,8 @@ export class OverviewServerComponent implements OnInit {
     private server: ServerService,
     private route: Router,
     private transport: TransporterService,
-    private token: TokenService
+    private token: TokenService,
+    private ping: PingService
   ) {}
 
   ngOnInit() {
@@ -45,7 +47,7 @@ export class OverviewServerComponent implements OnInit {
       this.servers = res as Server[];
       this.loading = true;
       this.servers.forEach(s => {
-        this.server.getServerSpringPing('ping/' + s.ip).subscribe(resPing => {
+        this.ping.getServerSpringPing('ping/' + s.ip).subscribe(resPing => {
           s.ping = resPing as boolean;
           s.loading = true;
         });

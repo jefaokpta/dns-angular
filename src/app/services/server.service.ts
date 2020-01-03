@@ -10,7 +10,6 @@ import { TokenService } from './token.service';
 export class ServerService {
 
    private url = 'http://localhost:8080/v1/';
-   private ping = 'http://localhost:8080/';
   // private url = location.origin + ':8080/VipDNS/ws/'; // PRODUCAO: LOCALHOST COM O WS
   // private url = 'http://dns.vcomsolucoes.com.br:8080/VipDNS/ws/';
 
@@ -72,13 +71,6 @@ export class ServerService {
       headers: new HttpHeaders({
         'content-type': 'application/json',
         'authorization': 'BASIC ' + this.token.getToken()
-      })
-    });
-  }
-  public getServerSpringPing(page: string){
-    return this.http.get(this.ping + page, {
-      headers: new HttpHeaders({
-        'content-type': 'application/json'
       })
     });
   }
