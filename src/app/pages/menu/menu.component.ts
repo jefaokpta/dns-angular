@@ -1,7 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TokenStore } from '../../utils/token-store';
 import { TransporterService } from '../../services/transporter.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ServerService } from '../../services/server.service';
@@ -15,6 +14,8 @@ interface User {
   id: number;
   name: string;
   password: string;
+  username: string;
+  admin: boolean;
 }
 
 @Component({
@@ -42,8 +43,10 @@ export class MenuComponent implements OnInit {
 
     this.formUser = this.fb.group({
       id: this.user.id,
-      name: [this.user.name, Validators.required],
-      password: [this.user.password, Validators.required]
+      name: [this.user.name],
+      password: [null, Validators.required],
+      username: [this.user.username, Validators.required],
+      admin: [this.user.admin]
     });
   }
   logout(){
@@ -57,9 +60,9 @@ export class MenuComponent implements OnInit {
   }
   updateUser(){
     if(this.formUser.valid){
-      this.server.updateServer('dns', this.formUser.value).subscribe(res => {
+      this.server.updateServerSpring('protected/user', this.formUser.value).subscribe(res => {
         this.user = this.formUser.value;
-        new Toast().showToast(res.txt, 'green', 15000);
+        new Toast().showToast('Editado ' + this.formUser.controls.name.value, 'green', 15000);
         this.formUser.controls.password.setValue('');
       }, (err: HttpErrorResponse) => {
         console.log(err)

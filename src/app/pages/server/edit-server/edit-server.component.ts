@@ -33,15 +33,6 @@ export class EditServerComponent implements OnInit {
   loading = true;
 
   ngOnInit() {
-    this.server.getServer('ping').subscribe(res => {
-      this.token.setToken(res.token);
-      }, (err: HttpErrorResponse) => {
-        console.log(err.error);
-        console.log(err.status);
-        new Toast().showToast('Sessão Expirada!', 'blue', 10000);
-        this.route.navigate(['/login']);
-    });
-
     this.serverEdit = this.transport.getObj()[0].server;
     this.servers = this.transport.getObj()[1].servers;
 
@@ -71,8 +62,8 @@ export class EditServerComponent implements OnInit {
       });
       if (send) {
         this.loading = false;
-        this.server.updateServer('servers', this.form.value).subscribe(res => {
-           new Toast().showToast(res.txt, 'green', 10000);
+        this.server.updateServerSpring('protected/servers', this.form.value).subscribe(res => {
+           new Toast().showToast('Editado ' + this.form.controls.name.value, 'green', 10000);
            this.route.navigate(['menu/servers']);
          },
          (err: HttpErrorResponse) => {

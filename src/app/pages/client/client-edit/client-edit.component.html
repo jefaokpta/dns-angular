@@ -17,8 +17,8 @@
               <div class="row">
                 <div class="col s5">
                   <div class="input-field" [formGroupName]="i">
-                    <input id="desc" type="text" class="validate" [ngClass]="validate('description', i)"  formControlName="description">
-                    <label for="desc">Descrição DNS</label>
+                    <input [id]="'desc'+i" type="text" class="validate" [ngClass]="validate('description', i)"  formControlName="description">
+                    <label [for]="'desc'+i" >Descrição DNS</label>
                     <span class="helper-text" data-error="Campo Obrigatório"></span>
                   </div>
                 </div>

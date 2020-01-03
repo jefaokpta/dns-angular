@@ -7,6 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { TransporterService } from '../../../services/transporter.service';
 import { Toast } from '../../../utils/toast';
 import { TokenService } from '../../../services/token.service';
+import { PingService } from '../../../services/ping.service';
 
 declare var $: any;
 
@@ -26,7 +27,8 @@ export class OverviewServerComponent implements OnInit {
     private server: ServerService,
     private route: Router,
     private transport: TransporterService,
-    private token: TokenService
+    private token: TokenService,
+    private ping: PingService
   ) {}
 
   ngOnInit() {
@@ -41,13 +43,12 @@ export class OverviewServerComponent implements OnInit {
     });
     this.serverDelete = new Server();
     $('.modal').modal();
-    this.server.getServer('servers').subscribe(res => {
-      this.token.setToken(res.token);
-      this.servers = res.data;
+    this.server.getServerSpring('protected/servers').subscribe(res => {
+      this.servers = res as Server[];
       this.loading = true;
       this.servers.forEach(s => {
-        this.server.getServer('dns/' + s.ip).subscribe(resPing => {
-          s.ping = resPing.txt === 'true' ? true : false;
+        this.ping.getServerSpringPing('ping/' + s.ip).subscribe(resPing => {
+          s.ping = resPing as boolean;
           s.loading = true;
         });
       });
@@ -64,8 +65,8 @@ export class OverviewServerComponent implements OnInit {
   }
   deleteServer(){
     this.servers.splice(this.servers.indexOf(this.serverDelete), 1);
-    this.server.deleteServer('servers', this.serverDelete.id).subscribe(res => {
-       new Toast().showToast(res.txt, 'green', 10000);
+    this.server.deleteServerSpring('protected/servers', this.serverDelete.id).subscribe(res => {
+      new Toast().showToast('Descanse em paz ' + this.serverDelete.name, 'green', 10000);
     },
     (err: HttpErrorResponse) => {
       console.log(err);
