@@ -10,7 +10,7 @@ import { TokenService } from './token.service';
 export class ServerService {
 
    //private url = 'http://localhost:8080/v1/';
-   private url = 'https://dns-jefao.herokuapp.com/v1';
+   private url = 'https://dns-jefao.herokuapp.com/v1/';
   // private url = 'http://dns.vcomsolucoes.com.br:8080/VipDNS/ws/';
 
   constructor(
