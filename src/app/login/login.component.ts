@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
   formLogin: FormGroup;
   loginError = true;
   errorMessage = '';
+  loading = true;
 
   constructor(
     private fb: FormBuilder,
@@ -39,6 +40,7 @@ export class LoginComponent implements OnInit {
   }
   login(){
     if(this.formLogin.valid){
+      this.loading = false;
       this.loginError = true;
       const auth = btoa(this.formLogin.controls.username.value + ':' + this.formLogin.controls.password.value);
       this.server.postServerSpringLogin('protected/login', JSON.stringify({
@@ -47,9 +49,11 @@ export class LoginComponent implements OnInit {
       .subscribe(res => {
         this.token.setToken(auth);
         this.transport.setObj(res);
+        this.loading = true;
         this.route.navigate(['menu/clients']);
       },
       (err: HttpErrorResponse) => {
+        this.loading = true;
         console.log(err);
         this.loginError = false;
         if(err.status == 0) {
